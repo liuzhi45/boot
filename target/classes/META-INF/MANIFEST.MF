@@ -4,6 +4,7 @@ Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: ￥ﾈﾘ￦ﾙﾺ
 Implementation-Vendor-Id: Spring
 Build-Jdk: 1.8.0_25
+Implementation-URL: http://projects.spring.io/spring-boot/boot/
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 
