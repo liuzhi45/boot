@@ -1,14 +1,15 @@
 package com.study;
 
-import java.util.Date;
 
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.study.dao.entity.Department;
 import com.study.dao.entity.Role;
@@ -17,14 +18,12 @@ import com.study.dao.repositry.DepartmentResposity;
 import com.study.dao.repositry.RoleReposity;
 import com.study.dao.repositry.UserReposity;
 
-/**
- * Hello world!
- *
- */
-@SpringBootApplication
-@RestController
-public class Application {
-    
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Config.class)
+public class MysqlTest {
+
 	@Autowired
 	UserReposity user;
 	
@@ -34,9 +33,8 @@ public class Application {
 	@Autowired
 	RoleReposity role;
 	
-	@RequestMapping("/")
-	@ResponseBody
-	public Object home(){
+	@Before
+	public void initData(){
 		
 		Department departments  = new Department();
 		departments.setName("开发部");
@@ -50,18 +48,12 @@ public class Application {
 		users.setName("user");
 		users.setCreateDate(new Date());
 		users.setDepartment(departments);
-		users.setRole(roles);
 		user.save(users);
-		return users;
 	}
 	
-	@RequestMapping("/login")
-	@ResponseBody
-	public String login(@RequestParam("name") String name,@RequestParam("pass") String pass){
-		
-		return "success";
-	}
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+	@Test
+	public void bootTest(){
+		List<User> findAll = user.findAll();
+		System.err.println(findAll);
 	}
 }
